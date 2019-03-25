@@ -1,5 +1,6 @@
 from PIL import Image
 import pytesseract
+pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
 import cv2
 import os #for getting project file path
 import matplotlib.pyplot as plt #for showing images
@@ -18,6 +19,10 @@ def plot_image_array(images, title = "title", subtitle = "subtitle"):
         i = i + 1
 
     plt.show()
+
+#####################################################################
+# Code starts here ##################################################
+#####################################################################
 
 # This assumes arguments are like: key1=val1 key2=val2 (with NO spaces between key equal val!)
 args = {}
@@ -40,6 +45,7 @@ img = cv2.imread(fp)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 images.append(img)
 lp = pytesseract.image_to_string(img)
+print(lp)
 plot_image_array(images, subtitle=lp)
 
 #print(pytesseract.image_to_string(Image.open(fp)))
