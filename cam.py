@@ -1,6 +1,7 @@
 from PIL import Image
 import pytesseract
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
+tessdata_dir_config = '--tessdata-dir "C:\\Program Files\\Tesseract-OCR\\tessdata"'
 import cv2
 import os #for getting project file path
 import matplotlib.pyplot as plt #for showing images
@@ -35,11 +36,9 @@ for arg in sys.argv[1:]:
 #make sure image path starts with a /
 if(args["image"][0] != '/'):
     args["image"] = '/' + args["image"]
-if(args["folder"][0] != '/'):
-    args["folder"] = '/' + args["folder"]
 
 #read image into img and convert to RGB
-fp = os.path.dirname(os.path.abspath(__file__)) + args["folder"] + args["image"]
+fp = os.path.dirname(os.path.abspath(__file__)) + args["image"]
 img = cv2.imread(fp)
 #convert image to RGB
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
