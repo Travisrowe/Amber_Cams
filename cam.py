@@ -5,7 +5,7 @@ import cv2
 import os #for getting project file path
 import matplotlib.pyplot as plt #for showing images
 import sys #for reading args
-import pprint
+# import pprint
 import json
 from LPEX import Extraction #used to crop to license plate
 import mysql.connector
@@ -210,8 +210,8 @@ class CarPicture():
 # Main starts here ##################################################
 #####################################################################
 
-# This assumes arguments are like: key1=val1 key2=val2 (with NO spaces between key equal val!)
-args = {} #dictionary of arguments passed into the program
+# This requires file path arguments to be passed in relative to the directory which contains cam.py
+# e.g. $ python cam.py "day_color(small sample)/IMG_0378.jpg"
 img_filepaths = []
 images = []
 
