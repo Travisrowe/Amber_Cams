@@ -76,9 +76,15 @@ class CarPicture():
         - s - a string, which has had non-alphanumeric characters removed
     """
     def remove_non_alphanum_chars(self, s):
+        s = "".join(s.split()) #remove all whitespace from s
+        # this is necessary because len(s) includes whitespace, but iterating c through s skips whitespace
+        # which results in an index out of bounds error
+        # print(s)
+        # print(len(s) - 1)
         for i in range(0, len(s) - 1):
             c = s[i]
             asciVal = ord(c)
+            # print(i, c)
             if(not ((asciVal >= 48 and asciVal <= 59) or (asciVal >= 65 and asciVal <= 90))):
                 s = s[:i] + s[i+1:]
         return s
@@ -130,18 +136,19 @@ class CarPicture():
         with open('config.json', 'r') as readFP:
             config = json.load(readFP)
             #note the auth_plugin parameter allows us to pass our password in a plain, non-encrypted way
-            pprint.pprint(config)
             cnx = mysql.connector.connect(host=config["host"],database=config["database"], user=config["username"], password=config["password"], auth_plugin='mysql_native_password')
             cursor = cnx.cursor()
             rowList = set()
 
-            for i in range(0, len(self.lp) - 1):
+            for i in range(0, len(self.lp)):
                 lp_copy = self.lp #this is the license plate with some SQL wildcards replacing characters
                 lp_copy = lp_copy[:i] + '%' + lp_copy[i + 1:]
-                for j in range(i, len(self.lp) - 1):
-                    lp_copy = lp_copy[:j] + '%' + lp_copy[j + 1:]
+                for j in range(i, len(self.lp)):
+                    lp_copy_j = lp_copy[:j] + '%' + lp_copy[j + 1:]
+                    #print(lp_copy_j)
                     #query using LIKE lp_copy
-                    query = ("SELECT * from tblAmberAlerts WHERE LicensePlate LIKE '" + lp_copy + "'")
+                    query = ("SELECT * from tblAmberAlerts WHERE LicensePlate LIKE '" + lp_copy_j + "'")
+                    #query = ("SELECT * from tblAmberAlerts")
                     cursor.execute(query)
                     for row in cursor:
                         rowList.add(row)
