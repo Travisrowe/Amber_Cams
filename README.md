@@ -25,3 +25,7 @@ Chris Dahms developed the code which Link009 modified. You can find [Link009's r
 ### Developer credit
 
 Credit also goes to Ernest Hernandez and Keona Rollerson for this project. 
+
+### Test Images credit
+
+All test images came from http://www.medialab.ntua.gr/research/LPRdatabase.html
